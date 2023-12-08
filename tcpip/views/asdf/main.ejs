@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/main.css" />
+    <title>끝말잇기</title>
+  </head>
+  <body>
+    <div id="content">
+      <div class="_top">
+        <a href=""><img src="images/word_logo_negative.png" /></a>
+        <div class="container">
+          <ul class="tabs">
+            <li class="tab-link current" data-tab="tab-1">방 목록</li>
+            <li class="tab-link" data-tab="tab-2">
+              <a id="makeroom" href="javascript:alert('로그인 후 이용해주세요.')">방 만들기</a>
+            </li>
+            <li class="tab-link" data-tab="tab-3">
+              <a id="login" href="javascript:openPop_login()">로그인 / 회원가입</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="_mid">
+        <ul class="rooms" id="rooms"></ul>
+      </div>
+      <div class="_bot"></div>
+    </div>
+    <!----------------------------------------- 로그인 팝업 ----------------------------------------->
+    <div class="popup_login" id="popup_login">
+      <input type="text" id="lg_id" placeholder="ID(학번)" class="_idpw" />
+      <input type="password" id="lg_pw" placeholder="PASSWORD" class="_idpw" />
+      <button type="submit" id="lg_login">LOGIN</button>
+      <div>
+        <a href="javascript:openPop_signup()" id="_regi">회원가입</a>
+      </div>
+    </div>
+    <!----------------------------------------------------------------------------------------------->
+
+    <!-------------------------------------------- 회원가입 -------------------------------------------->
+    <div class="popup_signup" id="popup_signup">
+      <p>아이디</p>
+      <div>
+        <input type="text" id="id" class="_idpw" />
+        <button type="submit" id="check_id">중복확인</button>
+      </div>
+      <p id="_idoverlap"></p>
+      <p>비밀번호</p>
+      <input type="password" id="pw" placeholder="비밀번호" />
+      <p id="_necessary">필수 입력 항목입니다.</p>
+      <p>비밀번호 재확인</p>
+      <input type="password" id="pw1" placeholder="비밀번호 재입력" />
+      <p id="_necessary">필수 입력 항목입니다.</p>
+      <div class="_privinfo">
+        <p>닉네임</p>
+        <input type="text" id="name" />
+        <button type="submit" id="_submit">가입하기</button>
+        <button type="submit" id="_cancel">취소</button>
+      </div>
+    </div>
+    <!----------------------------------------------------------------------------------------------->
+
+    <script src="vendors/socket.io/socket.io.js"></script>
+    <script src="javascripts/main.js"></script>
+    <script>
+      var socket = io();
+      socket.on("room_list", (data) => {
+        var keys = Object.keys(data); //키를 가져옵니다. 이때, keys 는 반복가능한 객체가 됩니다.
+        var values = [];
+        for (var i = 0; i < keys.length; i++) {
+          var key = keys[i];
+          values[i] = data[key];
+          let asdf = "#" + values[i];
+          if (document.querySelector(asdf) == null) {
+            const li = document.createElement("li");
+            li.setAttribute("id", values[i]);
+            const textNode = document.createTextNode(values[i]);
+            document.getElementById("rooms").appendChild(li);
+            const a = document.createElement("a");
+            a.innerHTML = values[i];
+            li.appendChild(a);
+          }
+        }
+      });
+      ////////////////////////////////////////////////////////////////////////////////////////
+
+      ///////////////////////////////////////////////////////////////   test
+      // var userrooms = [];
+      // socket.on("onCreateRoom", function (data) {
+      //   var roomexist = false;
+      //   for (var item in userrooms) {
+      //     if (data.roomname == userrooms[item].roomname) {
+      //       roomexist = true;
+      //     }
+      //   }
+      //   if (roomexist) {
+      //     socket.leave(socket.room);
+      //     socket.join(data.roomname);
+      //     socket.room = data.roomname;
+      //     data.rcode = 0;
+
+      //     userrooms.push({
+      //       userid: data.userid,
+      //       usernick: data.usernick,
+      //       roomname: data.roomname,
+      //       roompass: data.roompass,
+      //       roommaxp: data.roommaxp,
+      //       roomcurp: 1,
+      //     });
+      //   } else {
+      //     data.rcode = 1;
+      //   }
+      //   socket.emit("onCreateRoom", data);
+      // });
+      // ///////////////////////////////////////////////////////////////   test
+
+      // ///////////////////////////////////////////////////////////////   test
+      // socket.on("onGetRoom", function (data) {
+      //   var roomnames = [];
+      //   var delrooms = [];
+      //   var rooms = io.sockets.adapter.rooms;
+
+      //   for (var item01 in userrooms) {
+      //     var roomexist = false;
+      //     for (var item02 in rooms) {
+      //       if (userrooms[item01].roomname == item02) {
+      //         roomnames.push(item02);
+      //         roomexist = true;
+      //       }
+      //     }
+      //     if (!roomexist) {
+      //       delrooms.push(item01);
+      //     }
+      //   }
+      //   for (var i = delrooms.length - 1; i >= 0; i--) {
+      //     userrooms.splice(delrooms[i], delrooms[i] + 1);
+      //   }
+      //   for (var item in userrooms) {
+      //     var room = io.sockets.adapter.rooms[userrooms[item].roomname];
+      //     userrooms[item].roomcurp = Object.keys(room).length.toString();
+      //   }
+      //   data.userrooms = userrooms;
+      //   socket.emit("onGetRoom", data);
+      // });
+      ///////////////////////////////////////////////////////////////   test
+    </script>
+  </body>
+</html>

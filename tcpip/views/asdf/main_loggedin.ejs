@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/main.css" />
+    <title>끝말잇기</title>
+  </head>
+  <body>
+    <div id="content">
+      <div class="_top">
+        <a href=""><img src="images/word_logo_negative.png" /></a>
+        <div class="container">
+          <ul class="tabs">
+            <li class="tab-link current" data-tab="tab-1">방 목록</li>
+            <li class="tab-link" data-tab="tab-2">
+              <a id="makeroom" href="javascript:openPop_makeroom()">방 만들기</a>
+            </li>
+            <li class="tab-link" data-tab="tab-3">
+              <%= id %>님 어서오세요. / <a id="logout" href="/logout"> 로그아웃</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="_mid">
+        <ul class="rooms" id="showRooms"></ul>
+        <div class="in_game" id="in_game" style="display: none">
+          <table style="text-align: center; width: 100%; height: 100%; margin: 3%">
+            <th id="fpName">first player <%= id %></th>
+            <th><%= id %></th>
+            <th id="spName">second player</th>
+            <tr>
+              <td class="pName"><h1><%= id %></h1></td>
+              <td class="pName"></td>
+              <td class="pName"><h1>secondPlayer</h1></td>
+            </tr>
+            <tr>
+              <td class="timer"><h1>timer</h1></td>
+              <td class="timer">lastword</td>
+              <td class="timer"><h1>timer</h1></td>
+            </tr>
+            <tr>
+              <td class="word"><input type="text" /></td>
+              <td class="word"></td>
+              <td class="word"><input type="text" /></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="_bot"></div>
+    </div>
+
+    <!-------------------------------------------- 팝업 -------------------------------------------->
+    <div class="popup_makeroom" id="popup_makeroom" style="display: none">
+      <div>
+        <button type="button" id="exit" onclick="closePop_makeroom()">x</button>
+        <table>
+          <th colspan="2"><h2 style="text-align: center">방 생성</h2></th>
+          <tr>
+            <td>방 제목 :</td>
+            <td><input type="text" id="roomId" /></td>
+          </tr>
+          <tr>
+            <td>방 비밀번호 :</td>
+            <td><input type="password" pw="roomPw" /></td>
+          </tr>
+          <tr>
+            <td colspan="2"><button type="button" id="submit">완료</button></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <!---------------------------------------------------------------------------------------------->
+
+    <script src="vendors/socket.io/socket.io.js"></script>
+    <script src="javascripts/main_loggedin.js"></script>
+    <script>
+      // 방 만들기 ///////////////////////////////////////////////////////////////////////////
+      const socket = io();
+
+      socket.emit("update_nickname", "<%= id%>");
+
+      const makeroom = document.getElementById("submit");
+      makeroom.addEventListener("click", (e) => {
+        let roomName = document.getElementById("roomId").value;
+        if (roomName == "") return alert("방 이름을 입력해주세요.");
+        socket.emit("req_join_room", roomName);
+      });
+
+      socket.on("room_already_exist", (res) => {
+        alert(res);
+        // document.getElementById("msFromServ").innerHTML = res;
+      });
+
+      socket.on("noti_join_room", (res) => {
+        alert(`방 ${res}이 생성되었습니다.`);
+        closePop_makeroom();
+        location.href = "/in_game/";
+      });
+
+      // 방 만들기 ///////////////////////////////////////////////////////////////////////////
+      // socket.on("room_list", (data) => {
+      //   var keys = Object.keys(data); //키를 가져옵니다. 이때, keys 는 반복가능한 객체가 됩니다.
+      //   var values = [];
+      //   for (var i = 0; i < keys.length; i++) {
+      //     var key = keys[i];
+      //     values[i] = data[key];
+      //     let asdf = "#" + values[i];
+      //     if (document.querySelector(asdf) == null) {
+      //       const li = document.createElement("li");
+      //       li.setAttribute("id", values[i]);
+      //       // const textNode = document.createTextNode(values[i]);
+      //       document.getElementById("rooms").appendChild(li);
+      //       const a = document.createElement("a");
+      //       a.innerHTML = values[i];
+      //       li.appendChild(a);
+      //       const b = document.createElement("button");
+      //       b.innerHTML = "입장하기";
+      //       li.appendChild(b);
+      //     }
+      //   }
+      // });
+
+      // parent.addEventListener("click", (e) => {
+      //   e.currentTarget.children[0].style.backgroundColor = "green";
+      // });
+
+      // socket.on("room_change", (rooms) => {
+      //   document.getElementById("fpName").innerHTML = ""
+      //   // const roomList = welcome.q;
+      // });
+      ///////////////////////////////////////////////////////////////   test
+      ///////////////////////////////////////////////////////////////   test
+    </script>
+  </body>
+</html>

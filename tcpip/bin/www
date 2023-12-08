@@ -1,0 +1,234 @@
+#!/usr/bin/env node
+/**
+ * Module dependencies.
+ */
+var app = require("../app");
+var debug = require("debug")("tcpip:server");
+var http = require("http");
+const { stringify } = require("querystring");
+const e = require("express");
+const { markAsUntransferable } = require("worker_threads");
+const { start } = require("repl");
+
+/**
+ * Get port from environment and store in Express.
+ */
+var port = normalizePort(process.env.PORT || "3000");
+app.set("port", port);
+
+/**
+ * Create HTTP server.
+ */
+var server = http.createServer(app);
+
+/**
+ * Listen on provided port, on all network interfaces.
+ */
+server.listen(port);
+server.on("error", onError);
+server.on("listening", onListening);
+/*************************************************************************************************************************************/
+/**
+ * socket.io setting
+ */
+const io = require("socket.io")(server);
+
+// const userSocketIdMap = new Map();
+
+let cid;
+let cname;
+
+const user1SocketIdMap = new Map();
+const user2SocketIdMap = new Map();
+const wordMap = new Map();
+
+let turn;
+
+let rooms = [];
+const apiKey = "F2502C13CFE741D11C4C70617F12DAFF";
+
+// import fetch from "node-fetch";
+
+io.sockets.on("connection", (socket) => {
+  socket.on("join", (data) => {
+    let room = data.room;
+    let name = data.myName;
+
+    socket.room = room;
+    socket.name = name;
+    console.log("접속");
+    // Create Room
+    if (rooms[room] == undefined) {
+      console.log("room create :" + room);
+      rooms[room] = new Object();
+      rooms[room].socket_ids = new Object();
+      console.log("방 생성");
+    }
+    if (Object.keys(rooms[room].socket_ids).length == 2) {
+      console.log("방 꽉참");
+      socket.emit("room_already_full");
+    } else {
+      console.log("방 덜참");
+      if (Object.keys(rooms[room].socket_ids).length == 0) {
+        console.log("1번 참가자");
+        rooms[room].socket_ids[name] = socket.id;
+        turn = "user1";
+        socket.join(room);
+        socket.emit("joinP1", { turn: "user1" }); //user1
+      } else {
+        console.log("2번 참가자");
+        if (!rooms[room].socket_ids[name]) {
+          console.log("2번 참가자 이름 안쓰고있음");
+          const enemyName = Object.keys(rooms[room].socket_ids)[0];
+          rooms[room].socket_ids[name] = socket.id;
+          socket.join(room);
+          socket.emit("joinP2", { turn: "user2", enemyName: enemyName }); //user1
+          socket.broadcast.to(room).emit("p2Connected", { enemyName: name });
+        } else {
+          console.log("2번 참가자 이름 사용중");
+          socket.emit("name_already_used");
+        }
+      }
+    }
+  });
+
+  socket.on("disconnect", () => {
+    let room = socket.room;
+    if (room != undefined && rooms[room] != undefined) {
+      let name = socket.name;
+      console.log("name " + name + " has been disconnected");
+      //여기에 방을 나갔다는 메세지를 broad cast 하기
+      if (name != undefined) {
+        if (rooms[room].socket_ids != undefined && rooms[room].socket_ids[name] != undefined) {
+          delete rooms[room].socket_ids[name];
+          socket.broadcast.to(room).emit("enemy_disconnect");
+          socket.join(null);
+        }
+      } // if
+      if (Object.keys(rooms[room].socket_ids)) {
+        delete rooms[room];
+        socket.leave(room);
+      }
+    }
+  });
+  socket.on("end_disconnect", () => {
+    let room = socket.room;
+    if (room != undefined && rooms[room] != undefined) {
+      let name = socket.name;
+      console.log("name " + name + " has been disconnected");
+      //여기에 방을 나갔다는 메세지를 broad cast 하기
+      if (name != undefined) {
+        if (rooms[room].socket_ids != undefined && rooms[room].socket_ids[name] != undefined) {
+          delete rooms[room].socket_ids[name];
+          socket.broadcast.to(room).emit("enemy_disconnect");
+          socket.join(null);
+        }
+      } // if
+      if (Object.keys(rooms[room].socket_ids)) {
+        delete rooms[room];
+        socket.leave(room);
+      }
+    }
+  });
+
+  socket.on("message", (message) => {
+    let room = socket.room;
+    // clearInterval(start);
+    let wordddd = fetch(`https://opendict.korean.go.kr/api/search?key=${apiKey}&q=${message}&advanced=y&method=exact`)
+      .then((res) => {
+        return res.text();
+      })
+      .then((data) => {
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(data, "text/xml");
+
+        const result = xmlDoc.getElementsByTagName("total")[0].childNodes[0].nodeValue;
+        if (result > 0) {
+          console.log("존재하지 않는 단어입니다.");
+        }
+      });
+    if (rooms[room].words == undefined) {
+      rooms[room].words = [];
+      rooms[room].words.push(message);
+      console.log(rooms[room].words.at(-1));
+      if (turn === "user1") turn = "user2";
+      else turn = "user1";
+      io.to(room).emit("message", { message, turn });
+    } else {
+      if (rooms[room].words.indexOf(message) == -1) {
+        console.log(rooms[room].words.at(-1));
+        let preWord = rooms[room].words.at(-1).slice(-1);
+        console.log(preWord);
+        let curWord = message.substr(0, 1);
+        console.log(curWord);
+        if (preWord == curWord) {
+          if (turn === "user1") turn = "user2";
+          else turn = "user1";
+          rooms[room].words.push(message);
+          io.to(room).emit("message", { message, turn });
+        } else {
+          socket.emit("word_wrong");
+          socket.broadcast.to(room).emit("enemyLifeDown");
+        }
+      } else {
+        socket.emit("word_already_used");
+        socket.broadcast.to(room).emit("enemyLifeDown");
+      }
+    }
+  });
+});
+
+/*************************************************************************************************************************************/
+
+/**
+ * Normalize a port into a number, string, or false.
+ */
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+}
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
+function onError(error) {
+  if (error.syscall !== "listen") {
+    throw error;
+  }
+
+  var bind = typeof port === "string" ? "Pipe " + port : "Port " + port;
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case "EACCES":
+      console.error(bind + " requires elevated privileges");
+      process.exit(1);
+      break;
+    case "EADDRINUSE":
+      console.error(bind + " is already in use");
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+function onListening() {
+  var addr = server.address();
+  var bind = typeof addr === "string" ? "pipe " + addr : "port " + addr.port;
+  debug("Listening on " + bind);
+}

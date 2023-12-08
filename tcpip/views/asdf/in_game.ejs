@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/in_game.css" />
+    <title>끝말잇기</title>
+  </head>
+  <body>
+    <div id="content">
+      <div class="_top">
+        <a href="main"><img src="/images/word_logo_negative.png" /></a>
+        <div class="container">
+          <ul class="tabs">
+            <li class="tab-link current" data-tab="tab-1">방 목록</li>
+            <li class="tab-link" data-tab="tab-2">
+              <a id="makeroom" href="javascript:alert('로그인 후 이용해주세요.')">방 만들기</a>
+            </li>
+            <li class="tab-link" data-tab="tab-3">
+              <a id="login" href="javascript:openPop_login()">로그인 / 회원가입</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="_mid">
+        <div class="in_game" id="in_game">
+          <table>
+            <th id="fpName">first player</th>
+            <th id="fpName"></th>
+            <th id="spName">second player</th>
+            <tr>
+              <td class="pName"><h1></h1></td>
+              <td class="pName"></td>
+              <td class="pName"><h1>secondPlayer</h1></td>
+            </tr>
+            <tr>
+              <td class="timer"><h1>timer</h1></td>
+              <td class="timer">lastword</td>
+              <td class="timer"><h1>timer</h1></td>
+            </tr>
+            <tr>
+              <td class="word"><input type="text" /></td>
+              <td class="word"></td>
+              <td class="word"><input type="text" /></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="_bot"></div>
+    </div>
+    <script src="javascripts/"></script>
+  </body>
+</html>

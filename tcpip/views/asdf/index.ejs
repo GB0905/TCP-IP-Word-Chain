@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/index.css" />
+    <title>끝말잇기</title>
+  </head>
+  <body>
+    <div id="content">
+      <div class="_top">
+        <a href="main"><img src="/images/word_logo_negative.png" /></a>
+      </div>
+      <div class="_mid">
+        <div id="join" style="margin: 0 auto">
+          <div style="margin: 0 auto">
+            <button>방 만들기</button>
+          </div>
+          <div>
+            <button>방 참가하기</button>
+          </div>
+        </div>
+        <div id="game" style="display: none">
+          <span style="text-align: center; margin-top: 500px"><a id="result" href="/game"></a></span>
+          <div class="in_game" id="in_game">
+            <table>
+              <th id="fpName">
+                <h1 id="p1_name">&nbsp;</h1>
+                <img id="p1_life" src="/images/3heart.png" />
+              </th>
+              <th></th>
+              <th id="spName">
+                <h1 id="p2_name">&nbsp;</h1>
+                <img id="p2_life" src="/images/3heart.png" />
+              </th>
+              <tr>
+                <td class="pName">
+                  <h1 id="p1_text">&nbsp;</h1>
+                </td>
+                <td class="pName" id="chatWindow"></td>
+                <td class="pName">
+                  <h1 id="p2_text">&nbsp;</h1>
+                </td>
+              </tr>
+              <tr>
+                <td class="timer">&nbsp;</td>
+                <td class="timer">
+                  <div style="margin: auto 0; width: 100%; height: 100px; display: block">
+                    <input type="text" id="chatInput" disabled />
+                    <button id="chatMessageSendBtn" disabled>전송</button>
+                  </div>
+                </td>
+                <td class="timer"></td>
+              </tr>
+              <tr>
+                <td class="word"></td>
+                <td class="word"></td>
+                <td class="word"></td>
+              </tr>
+            </table>
+            <div style="text-align: center">
+              <span id="asdf" style="text-align: center"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="_bot"></div>
+    </div>
+    <!--------------------------------------------------------------------------------------------------------------->
+    <script src="/vendors/socket.io/socket.io.js"></script>
+    <script src="/javascripts/hangul-tools.js"></script>
+    <script src="/javascripts/index.js"></script>
+    <script></script>
+    <!--------------------------------------------------------------------------------------------------------------->
+  </body>
+</html>

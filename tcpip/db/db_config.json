@@ -1,0 +1,8 @@
+{
+  "host": "localhost",
+  "port": "3300",
+  "user": "root",
+  "password": "201945022",
+  "database": "tcpip",
+  "connectionLimit": 30
+}

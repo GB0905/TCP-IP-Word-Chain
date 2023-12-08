@@ -1,0 +1,163 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+
+/*=========================================== color ===========================================
+white : #eeeff1
+gray : #212325
+=============================================================================================*/
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", sans-serif;
+  box-sizing: border-box;
+  list-style: none;
+  text-decoration: none;
+  color: #eeeff1;
+}
+
+body {
+  background-color: black;
+  width: 100%;
+  height: 1200px;
+}
+
+/*============================================ top ============================================*/
+._top {
+  width: 70%;
+  height: 100px;
+  margin: 0 auto;
+  padding: 10px 10px 0 10px;
+  background-color: #000000;
+}
+._top img {
+  float: left;
+  height: 80px;
+}
+._top a {
+  margin: 0 30px 0 0;
+  float: left;
+}
+._top #logout {
+  float: right;
+}
+
+.container {
+  width: 100%;
+}
+ul.tabs {
+  margin: 10px;
+  padding: 0px;
+  list-style: none;
+  /* display: block; */
+}
+ul.tabs li {
+  display: block;
+  float: left;
+  background: none;
+  color: white;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-top-left-radius: 11px;
+  border-top-right-radius: 11px;
+}
+ul.tabs li:nth-last-child(1) {
+  float: inline-end;
+}
+ul.tabs li.current {
+  background: #212325;
+  color: white;
+}
+ul.tabs li a {
+  color: white;
+  margin: 0;
+}
+/*=============================================================================================*/
+
+/*============================================ mid ============================================*/
+#result {
+  width: 100%;
+}
+._mid {
+  background-color: #212325;
+  width: 70%;
+  height: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 11px;
+}
+._mid img {
+  padding: 10px;
+  width: 250px;
+  border: 1px solid #eeeff1;
+  border-radius: 10px;
+}
+._mid #chatInput {
+  color: black;
+  width: 343px;
+  height: 50px;
+  font-size: 20px;
+  display: block;
+  float: left;
+  border: none;
+  border-bottom-left-radius: 10px;
+  border-top-left-radius: 10px;
+  padding-left: 10px;
+}
+._mid #chatMessageSendBtn {
+  width: 50px;
+  height: 50px;
+  display: block;
+  border-bottom-right-radius: 10px;
+  border-top-right-radius: 10px;
+  border: none;
+  background: royalblue;
+}
+ul.rooms {
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  display: block;
+}
+
+ul.rooms li {
+  display: block;
+  width: 45%;
+  height: 140px;
+  color: aquamarine;
+  border: 1px solid whitesmoke;
+  border-radius: 11px;
+  margin: 1%;
+  padding: 1%;
+  float: left;
+}
+
+ul.rooms li:nth-child(even) {
+  float: right;
+  /* margin-right: 4%; */
+  color: aquamarine;
+}
+/*=============================================================================================*/
+.in_game table {
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  margin-top: 7%;
+  table-layout: fixed;
+}
+.in_game table .pName {
+  padding-top: 5%;
+}
+.in_game table .timer {
+  padding-top: 3%;
+}
+.in_game table .word {
+  padding-top: 10%;
+}
+
+._bot {
+  color: white;
+  height: 10%;
+  margin: 0 auto;
+  text-align: end;
+}

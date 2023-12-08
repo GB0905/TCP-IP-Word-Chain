@@ -1,0 +1,91 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+
+* {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  font-family: "Roboto", sans-serif;
+  list-style: none;
+}
+
+body {
+  background-color: black;
+}
+._top {
+  text-align: left;
+  color: white;
+  width: 510px;
+  height: 160px;
+  margin: 60px auto;
+  padding: 10px;
+}
+img {
+  float: left;
+  height: 30px;
+  margin-right: 20px;
+}
+h1 {
+  margin: 30px 0;
+}
+._mid {
+  background-color: #eeeff1;
+  border-radius: 3;
+  width: 460px;
+  height: 180px;
+  margin: 0 auto;
+  padding: 40px;
+  border-radius: 11px;
+}
+input {
+  float: left;
+  width: 345px;
+  height: 40px;
+  margin: 0 10px 10px 0;
+  padding-left: 15px;
+  border: none;
+  border-radius: 3px;
+  font-size: 15px;
+}
+._idpw {
+  width: 340px;
+  height: 40px;
+  margin: 0 10px 10px 0;
+}
+button {
+  width: 90px;
+  height: 90px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 3px;
+}
+#_autologin {
+  float: right;
+  width: 440px;
+  height: 30px;
+  padding-left: 3px;
+  text-align: right;
+  margin-right: 0;
+}
+#_check {
+  float: right;
+  margin-left: 5px;
+  width: 14px;
+  height: 14px;
+}
+#_find {
+  margin-top: 30px;
+  float: inline-start;
+}
+#_regi {
+  margin-top: 30px;
+  float: inline-end;
+}
+
+._bot {
+  color: white;
+  width: 1200px;
+  height: 20px;
+  margin: 0 auto;
+  padding-top: 200px;
+  text-align: end;
+}

@@ -1,0 +1,97 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+
+* {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    font-family: "Roboto", sans-serif;
+    list-style: none;
+}
+
+body {
+    background-color: black;
+    margin-left: 15px;
+}
+._top {
+    text-align: left;
+    color: white;
+    width: 510px;
+    height: 160px;
+    margin: 60px auto;
+    padding: 10px;
+}
+img {
+    float: left;
+    height: 160px;
+    margin-right: 20px;
+}
+h1 {
+    margin: 30px 0;
+}
+._mid {
+    background-color: #eeeff1;
+    border-radius: 3;
+    width: 460px;
+    height: 700px;
+    margin: 0 auto;
+    padding: 40px;
+    border-radius: 11px;
+}
+input {
+    float: left;
+    width: 445px;
+    height: 40px;
+    margin: 0 10px 10px 0;
+    padding-left: 15px;
+    border: none;
+    border-radius: 3px;
+    font-size: 15px;
+}
+._idpw {
+    width: 340px;
+    height: 40px;
+    margin: 0 10px 10px 0;
+}
+button {
+    width: 90px;
+    height: 40px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 3px;
+}
+#_idoverlap {
+    display: none;
+}
+#_necessary {
+    display: none;
+}
+._privinfo {
+    margin-top: 30px;
+}
+._selectbox {
+    background-color: white;
+    width: 440px;
+    height: 20px;
+    padding: 10px;
+    border-radius: 3px;
+    margin-bottom: 10px;
+}
+select {
+    border: none;
+    /* background-color: white; */
+    font-size: 15px;
+    appearance: none;
+}
+#_submit {
+    /* float: ; */
+    width: 460px;
+    margin-top: 50px;
+}
+
+._bot {
+    color: white;
+    width: 1200px;
+    height: 100px;
+    margin: 0 auto;
+    text-align: end;
+}

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/signup.css" />
+    <title>수강신청 회원가입</title>
+  </head>
+  <body>
+    <div>
+      <div class="_top">
+        <a href="#" style="color: white" id="toMain">
+          <img src="images/itcicon.png" />
+          <h1>인하공업전문대학 수강신청</h1>
+          <h3>INHA TECHNICAL COLLEGE</h3>
+        </a>
+      </div>
+      <div class="_mid">
+        <div class="_midmain">
+          <form action="">
+            <p>아이디</p>
+            <div>
+              <input type="text" name="_id" class="_idpw" />
+              <button type="submit">중복확인</button>
+            </div>
+            <p id="_idoverlap">이미 존재하는 아이디입니다.</p>
+            <p>비밀번호</p>
+            <input type="password"
+                   name="_pw"
+                   placeholder="비밀번호" />
+            <p id="_necessary">필수 입력 항목입니다.</p>
+            <p>비밀번호 재확인</p>
+            <input type="password"
+                   name="_pw"
+                   placeholder="비밀번호 재입력" />
+            <p id="_necessary">필수 입력 항목입니다.</p>
+            <div class="_privinfo">
+              <p>닉네임</p>
+              <input type="text" name="_nickname" />
+              <button type="submit" id="_submit">가입하기</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="_bot"></div>
+    </div>
+  </body>
+  <script src="javascripts/join.js"></script>
+</html>

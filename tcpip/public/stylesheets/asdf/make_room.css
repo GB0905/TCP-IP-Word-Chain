@@ -1,0 +1,144 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+
+/*=========================================== color ===========================================
+white : #eeeff1
+gray : #212325
+=============================================================================================*/
+
+* {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  font-family: "Roboto", sans-serif;
+  list-style: none;
+}
+
+body {
+  background-color: black;
+  width: 100%;
+  height: 1200px;
+}
+
+/*============================================ top ============================================*/
+._top {
+  width: 70%;
+  margin: 0 auto;
+  padding: 10px 10px 0 10px;
+  background-color: #000000;
+  height: 50px;
+}
+.container {
+  width: 100%;
+  /* margin: 0 auto; */
+}
+ul.tabs {
+  margin: 10px;
+  padding: 0px;
+  list-style: none;
+  /* border: 1px solid #212325; */
+  /* border-top: 1px solid #212325; */
+  /* border-right: 1px solid #212325; */
+  /* border-left: 1px solid #212325; */
+  /* border-radius: 11px; */
+}
+ul.tabs li {
+  background: none;
+  color: white;
+  display: inline-block;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+ul.tabs li {
+  background: none;
+  color: white;
+  display: inline-block;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-top-left-radius: 11px;
+  border-top-right-radius: 11px;
+}
+ul.tabs li:nth-last-child(1) {
+  float: inline-end;
+  /* background: #212325; */
+  /* color: white; */
+}
+ul.tabs li.current {
+  background: #212325;
+  color: white;
+}
+img {
+  /* display: inline-block; */
+  float: left;
+  height: 40px;
+}
+a {
+  margin: 0 30px 0 0;
+  float: left;
+  /* display: inline-block; */
+}
+/*=============================================================================================*/
+
+h1 {
+  margin: 30px 0;
+}
+._mid {
+  background-color: #212325;
+  width: 70%;
+  height: 600px;
+  margin: 0 auto;
+  padding: 40px;
+  border-radius: 11px;
+}
+input {
+  float: left;
+  width: 345px;
+  height: 40px;
+  margin: 0 10px 10px 0;
+  padding-left: 15px;
+  border: none;
+  border-radius: 3px;
+  font-size: 15px;
+}
+._idpw {
+  width: 340px;
+  height: 40px;
+  margin: 0 10px 10px 0;
+}
+button {
+  width: 90px;
+  height: 10%;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 3px;
+}
+#_autologin {
+  float: right;
+  width: 440px;
+  height: 30px;
+  padding-left: 3px;
+  text-align: right;
+  margin-right: 0;
+}
+#_check {
+  float: right;
+  margin-left: 5px;
+  width: 14px;
+  height: 14px;
+}
+#_find {
+  margin-top: 30px;
+  float: inline-start;
+}
+#_regi {
+  margin-top: 30px;
+  float: inline-end;
+}
+
+._bot {
+  color: white;
+  /* width: 1200px; */
+  height: 10%;
+  margin: 0 auto;
+  /* padding-top: 200px; */
+  text-align: end;
+}
